@@ -5,6 +5,7 @@ const router = require('./routes/routes');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const swagger = require("./swagger/swagger");
+const connectToDatabase = require('./models/db');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -24,5 +25,10 @@ app.set('view engine', 'ejs');
 
 app.use(router);
 
-app.listen(port, '0.0.0.0', () => console.log(`Example app listening on port ${port}!`)
-);
+// Connect to database before starting the server
+connectToDatabase().then(() => {
+  app.listen(port, '0.0.0.0', () => console.log(`Example app listening on port ${port}!`));
+}).catch((error) => {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+});

@@ -4,7 +4,7 @@ services:
 
   nodejs:
     container_name: nodejs
-    image: sh1v4ngastra/dvapi-com:v0.0.1
+    build: .
     restart: always
     ports:
       - 3000:3000

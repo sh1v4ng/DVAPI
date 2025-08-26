@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect('mongodb://mongodb:27017/dvapi', {
+    const mongoUri = process.env.MONGODB_URI;
+    await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
